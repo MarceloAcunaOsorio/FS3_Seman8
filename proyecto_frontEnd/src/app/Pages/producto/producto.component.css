@@ -1,5 +1,6 @@
 .card{
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     column-gap: 15px;
     margin: 5%;
