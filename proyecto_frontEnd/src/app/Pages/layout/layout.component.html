@@ -1,0 +1,49 @@
+<p-toast/>
+<!--header-->
+<div>
+  <app-header></app-header>
+</div>
+
+<!--body-->
+<div class="contenedor">
+  <div class="contenedor2">
+    <a routerLink="modal/new" class="p-button font-bold w-max">Crear Producto</a>
+  </div>
+ 
+
+  <div class="table-container">
+    <table class="table-rwd">
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Marca</th>
+        <th>Modelo</th>
+        <th>Color</th>
+        <th>Talla</th>
+        <th>Descripcion</th>
+        <th>Editar</th>
+        <th>Eliminar</th>
+      </tr>
+      @for (prod of producto; track prod._IdProducto) {
+      <tr>
+        <td>{{prod._IdProducto}}</td>
+        <td>{{prod._NombreProducto}}</td>
+        <td>{{prod._MarcaProducto}}</td>
+        <td>{{prod._ModeloProducto}}</td>
+        <td>{{prod._ColorProducto}}</td>
+        <td>{{prod._TallaProducto}}</td>
+        <td>{{prod._DescripcionProducto}}</td>
+        <td><a routerLink="modal/{{prod._IdProducto}}" class="p-button font-bold w-max" styleClass="w-full">Editar</a></td>
+        <td><a (onclick)="eliminarProducto(prod._IdProducto)" class="p-button font-bold w-max" styleClass="w-full">Eliminar</a></td>
+      </tr>
+      }@empty {<p>No existen Productos</p>}
+    </table>
+  </div>
+</div>
+
+
+<!---footer-->
+<div class="footer">
+  <app-footer></app-footer>
+</div>
+

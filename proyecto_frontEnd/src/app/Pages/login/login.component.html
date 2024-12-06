@@ -1,0 +1,30 @@
+
+<div>
+	<app-header></app-header>
+</div>
+
+<div class="main">
+	<h1>TiendaOnline</h1>
+	<h3>inicio de sesion</h3>
+
+	<form action="">
+		<label for="first">
+			email:
+		</label>
+		<input [(ngModel)]="email" type="text" id="first" name="email" placeholder="Enter your email" required>
+
+		<label for="password">
+			Password:
+		</label>
+		<input [(ngModel)]="password" type="password" id="password" name="password" placeholder="Enter your Password"
+			required>
+
+		<div class="wrap">
+			<button (click)="login()" type="submit">Login</button>
+		</div>
+	</form>
+</div>
+<div class="footer">
+	<app-footer></app-footer>
+</div>
+

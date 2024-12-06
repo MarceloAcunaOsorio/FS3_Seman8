@@ -1,0 +1,113 @@
+<p-toast/>
+
+<!--menu-->
+<div>
+<div>
+    <app-header></app-header>
+</div>
+
+<!--routerLink="book-form/new"-->
+<div class="container">
+<div class="main">
+    <h1>TiendaOnline</h1>
+    <h3>Crear Producto</h3>
+
+    <form [formGroup]="productoForm" (ngSubmit)="edit ? updateProducto() : createProducto()">
+
+        <label for="first">
+            Nombre:
+        </label>
+        <input pInputText formControlName="_NombreProducto" type="text" placeholder="nombre producto" required>
+
+        <label for="first">
+            Marca:
+        </label>
+        <input pInputText formControlName="_MarcaProducto" type="text" placeholder="marca" required>
+
+        <label for="first">
+            Modelo:
+        </label>
+        <input pInputText formControlName="_ModeloProducto" type="text" placeholder="Modelo" required>
+
+        <label for="first">
+            Color:
+        </label>
+        <input pInputText formControlName="_ColorProducto" type="text" placeholder="Color" required>
+        
+        <label for="first">
+            Talla:
+        </label>
+        <p-inputNumber formControlName="_TallaProducto" type="number" placeholder="talla" required />
+
+        <label for="first">
+            Descripción:
+        </label>
+        <input pInputText formControlName="_DescripcionProducto" type="text" placeholder="descripcion" required>
+
+        <div class="wrap">
+            <div class="flex gap-2">
+                <p-button label="Guardar" [loading]="isSaveInProgress" type="submit" />
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<!---footer-->
+<div class="footer">
+    <app-footer></app-footer>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!--<body>
+
+      <div class="form">
+          <form  [formGroup]="productoForm" (ngSubmit)="edit ? updateProducto() : createProducto()">
+
+              <div class="input-group">
+                  <div class="input-box">
+                      <label for="nombre">Nombre Producto</label>
+                      <input id="nombre" type="text" pInputText formControlName="_NombreProducto" placeholder="Nombre Producto" required>
+                  </div>
+
+                  <div class="input-box">
+                      <label for="Marca">Marca</label>
+                      <input id="marca" type="text"  pInputText formControlName="_MarcaProducto" placeholder="Marca" required>
+                  </div>
+                  <div class="input-box">
+                      <label for="modelo">Modelo</label>
+                      <input id="modelo" type="text" pInputText formControlName="_ModeloProducto" placeholder="Modelo" required>
+                  </div>
+
+                  <div class="input-box">
+                    <label for="color">Color</label>
+                    <input id="color" type="text" pInputText formControlName="_ColorProducto" placeholder="Color" required>
+                </div>
+
+                  <div class="input-box">
+                      <label for="talla">Talla</label>
+                      <input id="talla" type="number" inputId="integeronly" formControlName="_TallaProducto" placeholder="Talla" required>
+                  </div>
+
+                  <div class="input-box">
+                      <label for="descripcion">Descripcion</label>
+                      <input id="descripcion" type="text"  pInputText formControlName="_DescripcionProducto"  placeholder="Descripcion" required>
+                  </div>
+              </div>
+
+              
+              <div class="flex gap-2">
+                <p-button label="Guardar" [loading]="isSaveInProgress" type="submit" />
+              </div>
+          </form>
+      </div>
+</body>-->

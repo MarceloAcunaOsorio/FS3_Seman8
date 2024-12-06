@@ -1,0 +1,31 @@
+
+<div class="card">
+        @for (prod of producto; track prod._IdProducto) {
+
+        <p-card class="flex" header="{{prod._NombreProducto}}" subheader="{{prod._ModeloProducto}}" [style]="{ width: '250px'}">
+            <ng-template pTemplate="header">
+                <img alt="Card" src='assets/imagen/camarosen.jpg' />
+            </ng-template>
+            <p>
+                Descripcion: {{prod._DescripcionProducto}}
+            </p>
+            <p>
+                SKU:{{prod._IdProducto}}
+            </p>
+            <p>
+                Color :{{prod._ColorProducto}}
+            </p>
+            <p>
+                Marca: {{prod._MarcaProducto}}
+            </p>
+            <ng-template pTemplate="footer">
+                <div class="flex gap-3 mt-1">
+                    <p-button label="comprar" severity="secondary" class="w-full" styleClass="w-full" />
+                </div>
+            </ng-template>
+        </p-card>
+
+        }@empty {<p>No existen Productos</p>}
+
+    </div>
+

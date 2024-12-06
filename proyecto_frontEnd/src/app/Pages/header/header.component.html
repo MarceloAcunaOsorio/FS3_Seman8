@@ -1,0 +1,19 @@
+<header>
+    <nav>
+        <ul class='nav-bar'>
+            <li class='logo'><a href='#'><img src='assets/imagen/logo.png' /></a></li>
+            <input type='checkbox' id='check' />
+            <span class="menu">
+                <li><a routerLink="/home">Home</a></li>
+                <li><a routerLink="">Productos</a></li>
+                <li><a routerLink="/Registrar">Registrarse</a></li>
+                <li><a *ngIf="!userLoginOn" routerLink="/login">Login</a></li>
+                <li><a  (click)="logout()" class="">Cerrar Sesion</a></li>
+                <label for="check" class="close-menu"><i class="fas fa-times"></i></label>
+            </span>
+            <label for="check" class="open-menu"><i class="fas fa-bars"></i></label>
+        </ul>
+    </nav>
+</header>
+
+<!--*ngIf="userLoginOn"-->
