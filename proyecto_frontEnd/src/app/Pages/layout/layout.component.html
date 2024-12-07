@@ -35,8 +35,8 @@
         <td data-label="Color">{{prod._ColorProducto}}</td>
         <td data-label="Talla">{{prod._TallaProducto}}</td>
         <td data-label="Descripcion">{{prod._DescripcionProducto}}</td>
-        <td data-label="Editar"><button class="button1">Editar</button></td>
-        <td data-label="Eliminar"><button class="button2">Eliminar</button></td>
+        <td data-label="Editar"><button class="button1" routerLink="modal/{{prod._IdProducto}}">Editar</button></td>
+        <td data-label="Eliminar"><button class="button2" (click)="eliminarProducto(prod._IdProducto)">Eliminar</button></td>
       </tr>
       }@empty {<p>No existen Productos</p>}
     </tbody>

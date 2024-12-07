@@ -8,9 +8,18 @@
 }
 
 .button1{
-  padding: 10px 20px;
+  padding: 7px 10px;
   background-color: #415db8;
   color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button2{
+  padding: 7px 10px;
+  background-color: #e03838;
+  color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -62,15 +71,6 @@
 }
 
 
-.button2{
-  padding: 10px 20px;
-  background-color: #e03838;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
 /*css de tabla*/
 
 table {
@@ -105,7 +105,7 @@ table th {
   text-transform: uppercase;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 900px) {
   table {
     border: 0;
   }
@@ -190,7 +190,7 @@ table th {
     max-width: 100%;
     margin-bottom:50%;
   }
-  
+
 }
 
 
