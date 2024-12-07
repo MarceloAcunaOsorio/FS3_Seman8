@@ -4,9 +4,8 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 import { UsuarioService } from '../../core/services/usuario.service';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import {RouterModule } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { Router } from 'express';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
@@ -25,7 +24,9 @@ import { ButtonModule } from 'primeng/button';
     InputTextModule,
     HeaderComponent,
     FooterComponent,
-    FormsModule],
+    FormsModule,
+    
+  ],
   templateUrl: './registrar.component.html',
   styleUrl: './registrar.component.css'
 })

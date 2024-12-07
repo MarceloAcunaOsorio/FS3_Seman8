@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
 import { authenticatedGuard } from './core/guards/authenticated.guard';
-import ModalComponent from './Pages/modal/modal.component';
 
 export const routes: Routes = [
 

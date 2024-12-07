@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterModule, Router, RouterLink } from '@angular/router';
 import { ProductoService } from '../../core/services/producto.service';
@@ -102,7 +102,7 @@ export default class ModalComponent {
 
     this.productservice.updateProducto(this.productoForm.value).subscribe({
       next: () => {
-        this.messageService.add({ severity: 'success', summary: 'Guardado', detail: 'Libro actualizado correctamente' });
+        this.messageService.add({ severity: 'success', summary: 'Guardado', detail: 'Producto actualizado correctamente' });
         this.isSaveInProgress = false;
         this.router.navigateByUrl('/');
       },

@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink} from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule,RouterLink,RouterOutlet],
+  imports: [CommonModule,RouterLink],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
@@ -19,5 +20,4 @@ export class HeaderComponent implements OnInit{
   logout(): void{
     this.authService.logout();
   }
-  
 }

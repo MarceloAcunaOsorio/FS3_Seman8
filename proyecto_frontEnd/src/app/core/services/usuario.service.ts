@@ -3,9 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { usuario } from '../../models/usuario';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root'})
 export class UsuarioService {
 
   private ApiUrl = "http://localhost:8085/api/register"
