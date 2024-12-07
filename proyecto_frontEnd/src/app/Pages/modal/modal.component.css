@@ -3,17 +3,33 @@
     line-height: 2px;
 }
 
-body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: sans-serif;
-    line-height: 1.5;
-    min-height: 100vh;
-    background: #f3f3f3;
-    flex-direction: column;
-    margin: 0;
-}
+
+
+.contenedor3{
+    background: rgb(197, 65, 65);
+    height: 10%;
+    line-height: 15px;
+    display: block;
+    align-self: auto;
+  }
+
+  .contenedor4{
+    background: rgb(255, 255, 255);
+    width: 100%;
+    height: 100%;
+  }
+
+  .contenedor2{
+    background: rgb(255, 255, 255);
+    width: 100%;
+    height: 12%;
+    display: inline-block;
+    vertical-align: top;
+    max-width: 100%;
+    margin-bottom:30px;
+  }
+
+
 
 .main {
     background-color: #fff;
@@ -23,10 +39,14 @@ body {
     transition: transform 0.2s;
     width: 500px;
     text-align: center;
-	position: absolute;
-    top: 50%;
-    left: 50%;
-	transform: translate(-49%, -49%);
+    display: block; 
+    position: absolute; 
+    left: 50%; 
+    top: 60% ;
+    transform: translate(-50%, -50%)
+
+  
+
 }
 
 h1 {
@@ -72,12 +92,7 @@ button {
     align-items: center;
 }
 
-.footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 100px;
-  }
+
   
 
 
