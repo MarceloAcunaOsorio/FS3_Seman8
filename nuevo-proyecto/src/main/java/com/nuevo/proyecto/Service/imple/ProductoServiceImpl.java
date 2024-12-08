@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.nuevo.proyecto.Model.Producto;
 import com.nuevo.proyecto.Repository.ProductoRepository;
 import com.nuevo.proyecto.Service.ProductoService;
+import com.nuevo.proyecto.exceptions.NotFoundException;
 
 @Service
 public class ProductoServiceImpl implements ProductoService{
@@ -38,6 +39,14 @@ public class ProductoServiceImpl implements ProductoService{
 
     //Actualizar Producto
     @Override
+    public Producto updateProducto(Long _IdProducto, Producto producto) {
+    if (!productoRepository.existsById(_IdProducto)) {
+       throw new NotFoundException("Producto no encontrado con ID: " + _IdProducto);
+    }
+    producto.set_IdProducto(_IdProducto);
+        return productoRepository.save(producto);
+    }
+    /* @Override
     public Producto updateProducto(Long _IdProducto, Producto producto){
         if (productoRepository.existsById(_IdProducto)) {
             producto.set_IdProducto(_IdProducto);
@@ -47,12 +56,22 @@ public class ProductoServiceImpl implements ProductoService{
         {
             return null;
         }
-    }
+    }*/
 
 
     //borrar producto
     @Override
+    public void deleteProducto(Long _IdProducto) {
+        if (!productoRepository.existsById(_IdProducto)) {
+        throw new NotFoundException("Producto no encontrado con ID: " + _IdProducto); 
+    }
+     productoRepository.deleteById(_IdProducto);
+
+}
+
+    /* 
+    @Override
     public void deleteProducto(Long _IdProducto){
         productoRepository.deleteById(_IdProducto);
-    }
+    }*/
 }

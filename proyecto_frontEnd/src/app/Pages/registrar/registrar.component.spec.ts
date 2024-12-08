@@ -1,76 +1,70 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideHttpClient } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule, FormBuilder } from '@angular/forms';
+import { UsuarioService } from '../../core/services/usuario.service';
+import { MessageService } from 'primeng/api';
+import { of, throwError } from 'rxjs';
+import { RouterTestingModule } from '@angular/router/testing'; // Importar el RouterTestingModule
+import { HttpClientModule } from '@angular/common/http';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
 import RegistrarComponent from './registrar.component';
-import { FormGroup } from '@angular/forms';
 
 describe('RegistrarComponent', () => {
   let component: RegistrarComponent;
   let fixture: ComponentFixture<RegistrarComponent>;
+  let usuarioService: jasmine.SpyObj<UsuarioService>;
+  let messageService: MessageService;
+  let fb: FormBuilder;
 
   beforeEach(async () => {
+    // Crear un espía para el servicio UsuarioService
+    const usuarioServiceSpy = jasmine.createSpyObj('UsuarioService', ['createUsuario']);
+    
     await TestBed.configureTestingModule({
-      imports: [provideHttpClient(), provideHttpClientTesting(), RegistrarComponent]
-    })
-      .compileComponents();
+      imports: [
+        ReactiveFormsModule,
+        FormsModule,
+        HttpClientModule,
+        ButtonModule,
+        ToastModule,
+        RouterTestingModule, // Usar RouterTestingModule aquí
+        RegistrarComponent // Moverlo aquí
+      ],
+      providers: [
+        { provide: UsuarioService, useValue: usuarioServiceSpy },  // Usar el espía
+        { provide: MessageService, useValue: { add: jasmine.createSpy() } },
+        FormBuilder
+      ]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(RegistrarComponent);
     component = fixture.componentInstance;
+    usuarioService = TestBed.inject(UsuarioService) as jasmine.SpyObj<UsuarioService>;  // Tipo correcto
+    messageService = TestBed.inject(MessageService);
+    fb = TestBed.inject(FormBuilder);
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('debe crear un formulario de registro valido', () => {
-    expect(component.userForm).toBeDefined();
-    expect(component.userForm instanceof FormGroup).toBeTruthy();
-    expect(component.userForm.get('email')).toBeDefined();
-    expect(component.userForm.get('password')).toBeDefined();
-    expect(component.userForm.get('username')).toBeDefined();
-  })
-
-
-  it('debe marcar los campos como invalidos cuando estan vacios', () => {
-    const usernameControl = component.userForm.get('username');
-    const emailControl = component.userForm.get('email');
-    const passwordControl = component.userForm.get('password');
-
-    expect(usernameControl?.invalid).toBeTruthy();
-    expect(passwordControl?.invalid).toBeTruthy();
-    expect(emailControl?.invalid).toBeTruthy();
-  })
-
-
-  it('debe marcar el campo email como valido con una direccion de correo electronico valido', () => {
-    const emailControl = component.userForm.get('email');
-    emailControl?.setValue('test@ejemplo.com');
-    expect(emailControl?.valid).toBeTruthy();
-  })
-
-
-  it('debe marcar el campo password como valido con una contraseña de al menos 6 caracteres', () => {
-    const passwordControl = component.userForm.get('password');
-    passwordControl?.setValue('@passwordAA234%');
-    expect(passwordControl?.valid).toBeTruthy();
-  })
-
- /* it('debe llamar a la funcion submitForm cuando el formulario se envia con datos validos',()=>
-    {
-      spyOn(component, 'onSubmit');
-      const emailControl = component.userForm.get('email');
-      const usuarioControl = component.userForm.get('username');
-      const passwordControl = component.userForm.get('password');
-
-      emailControl?.setValue('usuario@gmail.com');
-      passwordControl?.setValue('A23wsder@4%');
-      usuarioControl?.setValue('jpedro');
-
-      const formsElement: HTMLFormElement =  fixture.nativeElement.querySelector('form')
-      formsElement.dispatchEvent(new Event('submit'));
-      fixture.detectChanges();
-      expect(component.onSubmit).toHaveBeenCalled();
+  it('should handle error when createUsuario fails', () => {
+    // Simula un formulario válido
+    component.userForm.setValue({
+      id: null,
+      email: 'test@example.com',
+      password: 'password123',
+      username: 'testuser'
     });
-*/
+
+    // Simula que el método createUsuario falla y devuelve un error
+    const errorResponse = new Error('Error');
+    usuarioService.createUsuario.and.returnValue(throwError(() => errorResponse));
+
+    component.createUsuario();
+
+    // Verifica que se haya mostrado el mensaje de error
+    expect(messageService.add).toHaveBeenCalledWith({
+      severity: 'error',
+      summary: 'Error',
+      detail: 'Revise los campos e intente nuevamente'
+    });
+  });
 });

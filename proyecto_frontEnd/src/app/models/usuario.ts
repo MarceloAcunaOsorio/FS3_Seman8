@@ -5,3 +5,4 @@ export interface usuario{
     password : string;
     email : string;
 }
+

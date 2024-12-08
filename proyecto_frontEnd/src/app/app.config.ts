@@ -6,8 +6,6 @@ import { HttpClient,provideHttpClient, withFetch } from '@angular/common/http';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MessageService } from 'primeng/api';
-import { UsuarioService } from './core/services/usuario.service';
-import { ProductoService } from './core/services/producto.service';
 
 
 export const appConfig: ApplicationConfig = {

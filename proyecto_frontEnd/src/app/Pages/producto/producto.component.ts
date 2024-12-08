@@ -1,19 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CardModule } from 'primeng/card';
-import { ButtonModule } from 'primeng/button';
 import { producto } from '../../models/producto';
 import { ProductoService } from '../../core/services/producto.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+
 
 @Component({
   selector: 'app-producto',
   standalone: true,
-  imports: [RouterModule,CardModule,ButtonModule],
+  imports: [RouterModule,HttpClientModule, ButtonModule,CardModule],
   templateUrl: './producto.component.html',
   styleUrl: './producto.component.css'
 })
 export class ProductoComponent {
+
 
   producto: producto[] = []
 

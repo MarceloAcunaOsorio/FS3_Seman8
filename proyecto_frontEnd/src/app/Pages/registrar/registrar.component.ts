@@ -5,27 +5,30 @@ import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 import { UsuarioService } from '../../core/services/usuario.service';
 import {RouterModule } from '@angular/router';
-import { MessageService } from 'primeng/api';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
+import { HttpClientModule } from '@angular/common/http';
+
+
 
 @Component({
   selector: 'app-registrar',
   standalone: true,
   imports: [FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
-    CommonModule,
-    HeaderComponent,
-    ButtonModule,
-    FooterComponent,
-    ToastModule,
-    InputTextModule,
-    HeaderComponent,
-    FooterComponent,
-    FormsModule,
-    
+            ReactiveFormsModule,
+            RouterModule,
+            CommonModule,
+            HeaderComponent,
+            ButtonModule,
+            FooterComponent,
+            ToastModule,
+            InputTextModule,
+            HeaderComponent,
+            FooterComponent,
+            FormsModule,
+            HttpClientModule
   ],
   templateUrl: './registrar.component.html',
   styleUrl: './registrar.component.css'
@@ -39,8 +42,7 @@ export default class RegistrarComponent {
   constructor(
     private fb: FormBuilder,
     private usuarioservice: UsuarioService,
-
-    private messageService: MessageService,
+    private messageService: MessageService
 
   ) {
     this.userForm = this.fb.group({
@@ -74,7 +76,6 @@ export default class RegistrarComponent {
       },
     });
   }
-
 
 
 }

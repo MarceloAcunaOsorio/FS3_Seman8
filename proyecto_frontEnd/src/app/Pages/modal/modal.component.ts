@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from "../header/header.component";
 import { FooterComponent } from "../footer/footer.component";
 import { ToastModule } from "primeng/toast"
+import { HttpClientModule } from '@angular/common/http';
 
 
 @Component({
@@ -24,7 +25,8 @@ import { ToastModule } from "primeng/toast"
     FooterComponent,
     ToastModule,
     InputNumberModule,
-    InputTextModule],
+    InputTextModule,
+    HttpClientModule],
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.css'
 })
@@ -34,6 +36,7 @@ export default class ModalComponent {
   isSaveInProgress: boolean = false;
   edit: boolean = false;
   selectedFile: File | null = null;
+  _idProducto:number = 0
 
 
   constructor(
@@ -100,7 +103,7 @@ export default class ModalComponent {
     }
     this.isSaveInProgress = true;
 
-    this.productservice.updateProducto(this.productoForm.value).subscribe({
+    this.productservice.updateProducto(this._idProducto,this.productoForm.value).subscribe({
       next: () => {
         this.messageService.add({ severity: 'success', summary: 'Guardado', detail: 'Producto actualizado correctamente' });
         this.isSaveInProgress = false;

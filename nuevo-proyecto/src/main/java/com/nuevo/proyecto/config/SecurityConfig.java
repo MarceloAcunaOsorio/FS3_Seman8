@@ -19,6 +19,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.nuevo.proyecto.Service.imple.UserDetailsServiceImpl;
 import com.nuevo.proyecto.security.JwtAuthEntryPoint;
@@ -26,7 +28,7 @@ import com.nuevo.proyecto.security.JwtAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public class SecurityConfig implements WebMvcConfigurer{
 
     @Autowired
     private UserDetailsServiceImpl userDetailsServiceImpl;
@@ -49,7 +51,7 @@ public class SecurityConfig {
         return authenticationProvider;
     }
 
-    @Bean
+    /*@Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
@@ -59,8 +61,8 @@ public class SecurityConfig {
                                 .requestMatchers("/api/login").permitAll()
                                 .requestMatchers("/api/register").permitAll()
                                 .requestMatchers("/api/home").permitAll()
-                                .requestMatchers("/admin").hasAnyAuthority("ADMIN")
-                                .requestMatchers("/user").hasAnyAuthority("USER")
+                                .requestMatchers("/api/**").hasAnyAuthority("ADMIN")
+                                .requestMatchers("/api/**").hasAnyAuthority("USER")
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
@@ -69,8 +71,28 @@ public class SecurityConfig {
                 .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(jwtAuthEntryPoint))
                 .headers(AbstractHttpConfigurer::disable)
                 .build();
-    }
+    }*/
 
+    @Bean
+
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    return http
+    
+        .csrf(AbstractHttpConfigurer::disable)
+        .cors(Customizer.withDefaults())
+        .authorizeHttpRequests(auth -> auth
+          .requestMatchers("/api/login", "/api/register", "/api/home").permitAll()
+          .requestMatchers("/api/productos").hasRole("ADMIN")
+          .anyRequest().authenticated()
+        )
+    
+        .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+    
+        .build();
+    }
+    
+    
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -90,5 +112,14 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
+   
+
+    @SuppressWarnings("null")
+    @Override
+    public void addCorsMappings( CorsRegistry registry) {
+        registry.addMapping("/**").allowedOrigins("http://localhost:4200"); // or whatever your frontend URL is
+    }
+
 
 }
