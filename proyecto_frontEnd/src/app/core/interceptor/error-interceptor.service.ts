@@ -16,7 +16,7 @@ export class ErrorInterceptorService implements HttpInterceptor {
        // Redirigir al login o mostrar un mensaje de error
        console.error('No autorizado: Token inválido o ausente');
       }
-      return throwError(err);
+      return throwError(() => new Error(err));;
      })
     );
    }
@@ -31,8 +31,8 @@ export class ErrorInterceptorService implements HttpInterceptor {
  })
  
  export class AuthService {
-  private apiUrl = 'http://localhost:8080/api/login';
-  constructor(private http: HttpClient) {}
+  private readonly apiUrl = 'http://localhost:8080/api/login';
+  constructor(private readonly http: HttpClient) {}
   login(credentials: { email: string; password: string }) {
   return this.http.post<{ token: string }>(this.apiUrl, credentials)
   .pipe(

@@ -8,8 +8,8 @@ import { Observable, tap } from 'rxjs';
 })
 export class AuthService {
 
-  private LOGIN_URL = 'http://localhost:8083/api/login';
-  private tokenKey = 'authToken';
+  private readonly LOGIN_URL = 'http://localhost:8083/api/login';
+  private readonly tokenKey = 'authToken';
 
   constructor(private httpCliente: HttpClient, private router: Router) { }
 

@@ -9,14 +9,13 @@ import { RouterModule} from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 
 import { ToastModule } from 'primeng/toast';
-import { HttpClientModule } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
 
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [HttpClientModule ,HeaderComponent, FooterComponent, RouterModule, ButtonModule, ToastModule],
+  imports: [HeaderComponent, FooterComponent, RouterModule, ButtonModule, ToastModule],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css'
 })
@@ -25,10 +24,10 @@ export default class LayoutComponent {
   producto: producto[] = []
   isDeleteInProgress: boolean = false;
 
-  constructor(private productoService: ProductoService,
-    private _matDialog: MatDialog,
-    private authService: AuthService,
-    private messageService: MessageService) { }
+  constructor(private readonly productoService: ProductoService,
+    private readonly _matDialog: MatDialog,
+    private readonly authService: AuthService,
+    private readonly messageService: MessageService) { }
 
 
   ngOnInit(): void {
@@ -37,6 +36,16 @@ export default class LayoutComponent {
 
   //funcion para obtener todos los productos
   getAllProductos() {
+    this.productoService.getProducto().subscribe({
+      next: (response: producto[]) => {
+        this.producto = response; // Correctly handle response as Producto[]
+      },
+      error: (error) => {
+        console.error('Error fetching productos:', error); // Handle the error properly
+      }
+    });
+  }
+  /*getAllProductos() {
     this.productoService.getProducto().subscribe((response: producto[]) => {
         this.producto = response; // Correctly handle response as Producto[]
       },
@@ -44,7 +53,7 @@ export default class LayoutComponent {
         console.error('Error fetching productos:', error);
       }
     );
-  }
+  }*/
 
 
   eliminarProducto(_IdProducto: number) {
@@ -62,8 +71,6 @@ export default class LayoutComponent {
     this.isDeleteInProgress = false;
     return;}
     
-      
-      
     // Call the service to delete the product, passing the token in the headers
     this.productoService.deleteProducto(_IdProducto, token).subscribe({
     next: () => {this.messageService.add({

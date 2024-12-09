@@ -6,9 +6,9 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root'})
 export class UsuarioService {
 
-  private ApiUrl = "http://localhost:8085/api/register"
+  private readonly ApiUrl = "http://localhost:8085/api/register"
   
-  constructor(private http:HttpClient) { }
+  constructor(private readonly http:HttpClient) { }
 
 
 //crear usuario

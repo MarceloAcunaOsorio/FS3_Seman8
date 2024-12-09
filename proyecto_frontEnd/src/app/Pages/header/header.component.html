@@ -1,14 +1,18 @@
 <header>
     <nav>
-        <ul class='nav-bar'>
-            <li class='logo'><a href='#'><img src='assets/imagen/logo.png' /></a></li>
-            <input type='checkbox' id='check' />
+        <ul class="nav-bar">
+            <li class="logo">
+                <a href="#">
+                    <img src="assets/imagen/logo.png" alt="Company Logo">
+                </a>
+            </li>
+            <input type="checkbox" id="check"/>
             <span class="menu">
                 <li><a routerLink="/home">Home</a></li>
                 <li><a *ngIf="tokenExists" routerLink="">Productos</a></li>
                 <li><a *ngIf="!tokenExists" routerLink="/Registrar">Registrarse</a></li>
-                <li><a *ngIf="!userLoginOn && !tokenExists"  routerLink="/login" >Login</a></li>
-                <li><a *ngIf="tokenExists" (click)="logout()" >Cerrar Sesion</a></li>
+                <li><a *ngIf="!userLoginOn && !tokenExists" routerLink="/login">Login</a></li>
+                <li><a *ngIf="tokenExists" (click)="logout()">Cerrar Sesion</a></li>
                 <label for="check" class="close-menu"><i class="fas fa-times"></i></label>
             </span>
             <label for="check" class="open-menu"><i class="fas fa-bars"></i></label>

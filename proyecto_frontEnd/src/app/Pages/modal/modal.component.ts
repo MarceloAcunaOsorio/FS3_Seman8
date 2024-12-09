@@ -1,6 +1,6 @@
-import { Component, NgModule } from '@angular/core';
+import { Component} from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, RouterModule, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterModule, Router} from '@angular/router';
 import { ProductoService } from '../../core/services/producto.service';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -10,7 +10,8 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from "../header/header.component";
 import { FooterComponent } from "../footer/footer.component";
 import { ToastModule } from "primeng/toast"
-import { HttpClientModule } from '@angular/common/http';
+
+
 
 
 @Component({
@@ -25,8 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
     FooterComponent,
     ToastModule,
     InputNumberModule,
-    InputTextModule,
-    HttpClientModule],
+    InputTextModule],
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.css'
 })
@@ -37,14 +37,15 @@ export default class ModalComponent {
   edit: boolean = false;
   selectedFile: File | null = null;
   _idProducto: number = 0
+  
 
 
   constructor(
-    private fb: FormBuilder,
-    private productservice: ProductoService,
-    private activatedRoute: ActivatedRoute,
-    private messageService: MessageService,
-    private router: Router
+    private readonly fb: FormBuilder,
+    private readonly productservice: ProductoService,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly messageService: MessageService,
+    private readonly router: Router
   ) {
     this.productoForm = this.fb.group({
       _IdProducto: [null],

@@ -9,7 +9,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
-import { HttpClientModule } from '@angular/common/http';
+
 
 
 
@@ -27,8 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
             InputTextModule,
             HeaderComponent,
             FooterComponent,
-            FormsModule,
-            HttpClientModule
+            FormsModule
   ],
   templateUrl: './registrar.component.html',
   styleUrl: './registrar.component.css'
@@ -40,9 +39,9 @@ export default class RegistrarComponent {
   
 
   constructor(
-    private fb: FormBuilder,
-    private usuarioservice: UsuarioService,
-    private messageService: MessageService
+    private readonly fb: FormBuilder,
+    private readonly usuarioservice: UsuarioService,
+    private readonly messageService: MessageService
 
   ) {
     this.userForm = this.fb.group({
