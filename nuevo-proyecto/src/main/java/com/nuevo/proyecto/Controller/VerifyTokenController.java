@@ -40,7 +40,7 @@ public class VerifyTokenController {
 
     //Crear
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/crearproducto")
+    @PostMapping("/crear")
     public ResponseEntity<Producto> createProducto(@RequestBody Producto producto) {
     return new ResponseEntity<>(productoService.createProducto(producto), HttpStatus.CREATED);
   }
@@ -51,7 +51,7 @@ public class VerifyTokenController {
 
     //Actualizar actualizar
     @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("/actualizar/{id}")
+    @PutMapping("/actualizar/{_idProducto}")
     public ResponseEntity<Producto> updateProducto(@PathVariable Long _idProducto, @RequestBody Producto producto) {
     return new ResponseEntity<>(productoService.updateProducto(_idProducto, producto), HttpStatus.OK);
 }
@@ -88,7 +88,7 @@ public class VerifyTokenController {
 
     //buscar producto
 
-    @GetMapping("/{id}")
+    @GetMapping("detalle/{id}")
     public Optional<Producto>getProductoAdminById(@PathVariable Long id){
         return productoService.getProductoById(id);
     }

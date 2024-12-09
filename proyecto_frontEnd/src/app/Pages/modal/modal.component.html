@@ -15,6 +15,11 @@
             <form [formGroup]="productoForm" (ngSubmit)="edit ? updateProducto() : createProducto()">
 
                 <label for="first">
+                    Codigo:
+                </label>
+                <p-inputNumber formControlName="_IdProducto" type="number" placeholder="Codigo Producto" required />
+
+                <label for="first">
                     Nombre:
                 </label>
                 <input pInputText formControlName="_NombreProducto" type="text" placeholder="nombre producto" required>

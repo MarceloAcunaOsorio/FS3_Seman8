@@ -20,17 +20,31 @@ export class ProductoService {
 
 
   //id del producto
-  getProductoById(_idProducto: number): Observable<producto> {
+    // Modify getProductoById to accept token
+    getProductoById(_IdProducto: number, token: string): Observable<any> {
+      // Set up the HTTP headers with the token
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  
+      // Send the GET request with the headers
+      return this.http.get(`${this.apiUrl}/detalle/${_IdProducto}`, { headers });
+    }
+  
+  /*getProductoById(_idProducto: number): Observable<producto> {
     return this.http.get<producto>(`${this.apiUrl}/${_idProducto}`);
-  }
+  }*/
 
 
   //crear producto
 
-  createProducto(producto: any) {
-    return this.http.post(`${this.apiUrl}`, producto);
+  createProducto(producto: any, token: string): Observable<any> {
+    // Set up the HTTP headers with the token
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    // Send the POST request with the headers
+    return this.http.post(`${this.apiUrl}/crear`, producto, { headers });
   }
-  /*private apUrl = 'http://localhost:8085/admin/crearproducto'
+
+/*
   createProducto(producto: producto): Observable<producto> {
     const formData = new FormData()
     formData.append(`producto`, new Blob([JSON.stringify(producto)], { type: 'application/json' }));
@@ -45,8 +59,13 @@ export class ProductoService {
 
 
   //Actualizar producto
-  updateProducto(_idProducto: number, producto: any) {
-    return this.http.put(`${this.apiUrl}/${_idProducto}`, producto);
+  // Modify updateProducto method to accept token
+  updateProducto(_idProducto: number, producto: any, token: string): Observable<any> {
+    // Set up the HTTP headers with the token
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    // Send the PUT request with the headers
+    return this.http.put(`${this.apiUrl}/actualizar/${_idProducto}`, producto, { headers });
   }
   
   /*private apUrls = 'http://localhost:8085/admin/actualizar'

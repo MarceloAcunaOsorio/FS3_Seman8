@@ -36,7 +36,7 @@ export default class ModalComponent {
   isSaveInProgress: boolean = false;
   edit: boolean = false;
   selectedFile: File | null = null;
-  _idProducto:number = 0
+  _idProducto: number = 0
 
 
   constructor(
@@ -66,52 +66,158 @@ export default class ModalComponent {
     }
   }
 
+  
+  //traer el producto por ID
   getProductById(_IdProducto: number) {
-    this.productservice.getProductoById(_IdProducto).subscribe({
-      next: foundProducto => { this.productoForm.patchValue(foundProducto); },
+    // Retrieve the token from localStorage (or wherever it's stored)
+    const token = localStorage.getItem('authToken');
+  
+    if (!token) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Token de acceso no disponible.',
+      });
+      this.router.navigateByUrl('/');  // Navigate to another route if the token is missing
+      return;
+    }
+  
+    // Call the service to get the product by ID, passing the token in the headers
+    this.productservice.getProductoById(_IdProducto, token).subscribe({
+      next: (foundProducto) => {
+        this.productoForm.patchValue(foundProducto); // Populate the form with the found product data
+      },
       error: () => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No encontrado' });
-        this.router.navigateByUrl('/');
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'No se encontró el producto',
+        });
+        this.router.navigateByUrl('/');  // Navigate if an error occurs
       },
     });
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+  //metodo crea producto
   createProducto() {
+
     if (this.productoForm.invalid) {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Revise los campos e intente nuevamente', });
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Revise los campos e intente nuevamente',
+      });
       return;
     }
     this.isSaveInProgress = true;
 
-    this.productservice.createProducto(this.productoForm.value).subscribe({
+
+    // Retrieve the token from localStorage (or wherever it is stored)
+    const token = localStorage.getItem('authToken');
+
+    if (!token) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Token de acceso no disponible.',
+      });
+      this.isSaveInProgress = false;
+      return;
+    }
+
+    // Call the service to create the product, passing the token in the headers
+    this.productservice.createProducto(this.productoForm.value, token).subscribe({
       next: () => {
-        this.messageService.add({ severity: 'success', summary: 'Guardado', detail: 'Producto guardado correctamente' });
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Guardado',
+          detail: 'Producto guardado correctamente',
+        });
+
         this.isSaveInProgress = false;
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/');  // Navigate to the home page or another route
       },
+
+
       error: () => {
         this.isSaveInProgress = false;
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Revise los campos e intente nuevamente' });
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Revise los campos e intente nuevamente',
+        });
       },
     });
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Actualizar producto
   updateProducto() {
     if (this.productoForm.invalid) {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Revise los campos e intente nuevamente' });
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Revise los campos e intente nuevamente',
+      });
       return;
     }
     this.isSaveInProgress = true;
-
-    this.productservice.updateProducto(this._idProducto,this.productoForm.value).subscribe({
+  
+    // Retrieve the token from localStorage (or wherever it is securely stored)
+    const token = localStorage.getItem('authToken');
+  
+    if (!token) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Token de acceso no disponible.',
+      });
+      this.isSaveInProgress = false;
+      return;
+    }
+  
+    // Call the service to update the product, passing the token in the headers
+    this.productservice.updateProducto(this.productoForm.value._IdProducto, this.productoForm.value, token).subscribe({
       next: () => {
-        this.messageService.add({ severity: 'success', summary: 'Guardado', detail: 'Producto actualizado correctamente' });
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Guardado',
+          detail: 'Producto actualizado correctamente',
+        });
         this.isSaveInProgress = false;
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/'); // Navigate to home or another page
       },
       error: () => {
         this.isSaveInProgress = false;
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Revise los campos e intente nuevamente' });
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Revise los campos e intente nuevamente',
+        });
       },
     });
   }
