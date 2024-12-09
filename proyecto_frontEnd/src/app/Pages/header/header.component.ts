@@ -14,10 +14,21 @@ import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 export class HeaderComponent implements OnInit{
 
   userLoginOn:boolean=false;
-  ngOnInit(): void {}
+  tokenExists: boolean = false;
+
+  ngOnInit():void
+  { 
+    if (typeof window !== 'undefined' && localStorage) {
+      const token = localStorage.getItem('authToken');
+      this.tokenExists = !!token;  // true if token exists, false otherwise
+    }
+  
+  }
 
   constructor(private authService: AuthService){}
+ 
   logout(): void{
     this.authService.logout();
   }
+
 }
